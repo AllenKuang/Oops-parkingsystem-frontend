@@ -15,17 +15,17 @@ class NormalLoginForm extends Component {
         axios.post(requestUrls.login, postData)//.employees
           .then((res) => {
             console.log(res)
-            if (res.status === 200) {
-              message.info('登录成功');
+            if (res.status === 200 &&res.data.token) {
+              message.success('登录成功');
               localStorage.setItem("access_token", res.data.token);
               axios.defaults.headers.common['authorization'] = res.data.token;
               this.getUserInfo(res.data.id)
             } else {
-              message.info('未知异常！');
+            message.error('账号或密码错误或账号被冻结！');
             }
           })
           .catch((error) => {
-            message.info('账号或密码错误！');
+            message.error('账号或密码错误或账号被冻结！');
           })
       }
     });

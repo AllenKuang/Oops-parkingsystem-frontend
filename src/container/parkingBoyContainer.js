@@ -2,9 +2,12 @@ import { connect } from 'react-redux'
 import parkingBoy from "../compoments/parkingBoy"
 import Api from "../API/parkingLotAPI"
 const mapStateToProps = (state, ownProps) => {
+    console.log("-----------------")
+    console.log(state)
+
     // console.log("++++"+JSON.stringify(state.parkingLotReducers))
     return {
-       parkingboyList: state.employeeReducers,
+       parkingboyList: state.parkingboyReducers,
        parkinglots: state.parkingLotReducers,
     }
 
@@ -31,8 +34,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
         onDeleteParkinglot:(userId, ids)=>{
             Api.deleteParkinglots(userId, ids, dispatch)
+        },
+        onUpdateWorkStatus:(parkingBoyId,workStatus,updateParkingBoyList) =>{
+            Api.updateWorkStatus(parkingBoyId,workStatus,updateParkingBoyList)
         }
-
     }
 }
 

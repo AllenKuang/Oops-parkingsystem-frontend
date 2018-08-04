@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Icon, Divider, Button, Menu, Dropdown, message, Input, Row, Col, Select } from 'antd'
+import { Table, Icon, Divider, Button, Menu, Dropdown, message, Input, Row, Col, Select, Popconfirm } from 'antd'
 import Edit from "./common/editComponent"
 
 const InputGroup = Input.Group;
@@ -28,12 +28,12 @@ class ParkingLotMangement extends Component {
     componentWillMount() {
         this.props.onGetAllParkingLots();
     }
-    showModifyForm = (value, id, name, size) => {
-        console.log(value)
+    showModifyForm = (value, id, name, size, car) => {
         this.setState({
             isShowModifyForm: value,
             modifyId: id,
-            dataFormat: { name, size }
+            car: car,
+            dataFormat: { name, size}
         })
     }
 
@@ -44,7 +44,11 @@ class ParkingLotMangement extends Component {
     }
 
     modifyForm = (value) => {
-        this.props.onModifyParkinglot(this.state.modifyId, value)
+        if(value.size != null && (value.size+"").match(/\D/)==null){
+            this.props.onModifyParkinglot(this.state.modifyId, this.state.car, value)
+        }else{
+            message.error("停车场信息格式错误")
+        }
     }
 
     submitForm = (value) => {
@@ -56,8 +60,8 @@ class ParkingLotMangement extends Component {
         const columns = [
             // { title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left' },
             { title: 'id', dataIndex: 'id', key: 'id', fixed: 'left' },
-            { title: '名字', dataIndex: 'name', key: 'name' },
-            { title: '大小', dataIndex: 'size', key: 'size' },
+            { title: '名称', dataIndex: 'name', key: 'name' },
+            { title: '容量', dataIndex: 'size', key: 'size' },
             {
                 title: '操作',
                 key: 'operation',
@@ -66,15 +70,13 @@ class ParkingLotMangement extends Component {
                 render: (parkinglot) => (
                     <span>
                         <a href="javascript:;"
-                            onClick={() => this.showModifyForm(true, parkinglot.id, parkinglot.name, parkinglot.size)} >修改</a>
+                            onClick={() => this.showModifyForm(true, parkinglot.id,parkinglot.name, parkinglot.size, parkinglot.countOfCars)} >修改</a>
                         <Divider type="vertical" />
-                        <a href="javascript:;"
-                            onClick={() => {
-                                console.log(parkinglot.id);
-                                this.props.changeStatus(parkinglot.id, parkinglot.status)
-                            }}>
-                            {parkinglot.status === "open" ? "注销" : "开放"}
-                        </a>
+                        <Popconfirm placement="leftTop" title={`你确定要${parkinglot.status === "open" ? "注销" : "开放"}该停车场么？`}
+                        onConfirm={() => {this.props.changeStatus(parkinglot.id, parkinglot.status)}} okText="Yes" cancelText="No">
+                                {/* <a href="javascript:;" >{e.account_status === "normal" ? "冻结" : "开放"}</a> */}
+                                <a href="javascript:;">{parkinglot.status === "open" ? "注销" : "开放"}</a>
+                            </Popconfirm>
                     </span>
                 ),
             },

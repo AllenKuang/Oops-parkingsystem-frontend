@@ -1,32 +1,38 @@
 import * as types from '../constants/ActionTypes'
-export default (state=[], action) => {
+export default (state = [], action) => {
     switch (action.type) {
-       case types.EMPLOYEELIST:{
-            let newState = [...state]
-            newState = action.employeesList
+        case types.EMPLOYEELIST: {
+            let newState = [...action.employeesList]
+            // newState = action.employeesList
+            console.log(newState)
             return newState;
         }
-        case types.ADDEMPLOYEE:{
-            let newState = [...state,action.employeeItem]
+        case types.ADDEMPLOYEE: {
+            let newState = [...state, action.employeeItem]
             return newState;
-        } 
+        }
 
-        case types.ACCOUNTSTATUS:{
+        case types.ACCOUNTSTATUS: {
             let newState = [...state]
-            newState.find(i=>i.id == action.employeeItem.id).account_status = action.employeeItem.account_status
-            return newState;
+            console.log(newState.filter(i => i.id == action.employeeItem.id))
+            return newState.map(i => {
+                if(i.id == action.employeeItem.id){
+                    return action.employeeItem
+                }
+                return i;
+            })
         }
-        case types.UPDATEEMPLOYEE:{
+        case types.UPDATEEMPLOYEE: {
             let newState = [...state]
-            return newState.map(i=>{
-                if(i.id === action.employeeItem.id){
+            return newState.map(i => {
+                if (i.id === action.employeeItem.id) {
                     return action.employeeItem
                 } else {
                     return i
                 }
             })
         }
-        case types.SEARCHEMPLOYEE:{
+        case types.SEARCHEMPLOYEE: {
             console.log(action.employeesList)
             let newState = [...action.employeesList]
             return newState

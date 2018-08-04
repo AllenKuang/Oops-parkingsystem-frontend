@@ -12,12 +12,12 @@ export default {
                 dispatch(actions.allEmployees(res.data))
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error); 
             })
     },
     "getAllParkingboys": (dispatch) => axios.get(`${requestUrls.employees}?role=parkingboy`)
         .then((res) => {
-            dispatch(actions.allEmployees(res.data))
+            dispatch(actions.allparkingboys(res.data))
         })
         .catch((error) => {
             console.log(error);
@@ -57,14 +57,17 @@ export default {
                 }
             })
             .catch(error => {
+                message.error(`停车场${status==="open"?"注销失败，已被分配的停车场无法注销":"开放失败"}`)
                 console.log(error)
             }),
     "addEmployee": (dispatch, postData) =>
         axios.post(requestUrls.employees, postData)
             .then((res) => {
+                message.success(`员工新增成功，该员工的账号是：${res.data.username}，密码是：${res.data.password}`)
                 dispatch(actions.addEmployee(res.data))
             })
             .catch((error) => {
+                message.error("账户名不能重复，新增员工失败")
                 console.log(error);
             }),
     "addParkinglot": (dispatch, postData) =>{
@@ -85,16 +88,22 @@ export default {
         }
     },
 
-    "modifyParkinglot": (id, value, dispatch) =>
-        axios.put(`${requestUrls.parkingLots}/${id}`, value)
-            .then(res => {
-                dispatch(actions.modifyParkinglot(res.data))
-                message.success("停车场修改成功")
-            })
-            .catch(error => {
-                message.error("停车场有车时不能修改大小")
-                console.log(error)
-            }),
+    "modifyParkinglot": (id, car, value, dispatch) =>{
+        if(car === 0){
+            axios.put(`${requestUrls.parkingLots}/${id}`, value)
+                .then(res => {
+                    dispatch(actions.modifyParkinglot(res.data))
+                    message.success("停车场修改成功")
+                })
+                .catch(error => {
+                    // message.error("停车场有车时不能修改大小")
+                    message.error("停车场修改失败");
+                    console.log(error.data)
+                })
+        }else{
+            message.error("停车场有车时不能修改")
+        }
+    },
 
     "frozenAccount": (dispatch, id) => axios.patch(requestUrls.employees + "/" + id, {account_status: ""})
         .then(res => {
@@ -104,15 +113,15 @@ export default {
             console.log(error);
         }),
 
-    "getAllOrders": (dispatch) => 
-        axios.get(requestUrls.orders)   
+    "getAllOrders": (dispatch) =>
+        axios.get(requestUrls.orders)
         .then((res) => {
             dispatch(actions.allOrders(res.data))
         })
         .catch((error) => {
             console.log(error);
         }),
-    "getAllParkingLotsInDashboard": (dispatch) => 
+    "getAllParkingLotsInDashboard": (dispatch) =>
         axios.get(requestUrls.parkingLotsDashboard)
         .then((res) => {
             console.log(res.data)
@@ -123,9 +132,11 @@ export default {
         }),
     "updateEmployee": (dispatch, employee) => axios.patch(requestUrls.employees + "/" + employee.id, employee)
         .then((res) => {
+            message.success("信息修改成功")
             dispatch(actions.updateEmployee(res.data))
         })
         .catch((error) => {
+            message.error("manager已经存在，不能重复设置")
             console.log(error);
         }),
     "searchEmployees": (dispatch, searchValue) => axios.get(requestUrls.employees + "/search?" + searchValue.searchType + "=" + searchValue.searchValue + "")
@@ -218,5 +229,26 @@ export default {
     .catch((error) => {
         console.log(error);
     }),
-
+    "getAllAvailableBoys":(success,id) =>axios.get(requestUrls.employees + "/AvailableParkingBoys" )
+        .then(res => {
+            success(res.data,id);
+        })
+        .catch(error => {
+            console.log(error);
+        }),
+    "postOrderToParkingBoy":(id,boyId,dispatch)=>
+        axios.patch(requestUrls.orders + "/" + id+"?"+"boyId="+boyId)
+            .then(res => {
+                dispatch(actions.updateOrderItem(res.data))
+            })
+            .catch(error => {
+                console.log(error);
+            }),
+    "updateWorkStatus":(parkingBoyId,workStatus,updateParkingBoyList)=>  axios.patch(requestUrls.employees + "/"+parkingBoyId+"/status?state="+workStatus)
+        .then(res => {
+            updateParkingBoyList(res.data);
+        })
+        .catch(error => {
+            console.log(error);
+        }),
 }

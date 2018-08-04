@@ -15,7 +15,13 @@ export const modifyParkinglot = (parkinglotItem)=>{return {type: types.MODIFYPAR
 // order
 export const allOrders = (ordersList) => {return {type:types.ORDERSLIST,ordersList}}
 export const searchOrders = (ordersList) => {return {type:types.SEARCHORDER,ordersList}}
-
+export const updateOrderItem = (OrderItem) =>{return {type: types.UPDATEITEM,OrderItem}}
 
 // parkinglot in dashboard
 export const allParkingLotsInDashboard=(parkinglotsListInDashboard)=>{return {type:types.PARKINGLOTLISTINDASHBOARD,parkinglotsListInDashboard}}
+
+// parking boy
+export const allparkingboys = (parkingboysList) => { return { type: types.PARKINGBOYLIST, parkingboysList } };
+export const addparkingboy = (parkingboyItem) => { return { type: types.ADDPARKINGBOY, parkingboyItem } };
+export const updateparkingboy = (parkingboyItem)=>{return {type: types.UPDATEPARKINGBOY, parkingboyItem}}
+export const searchparkingboys = (parkingboysList)=>{return {type: types.SEARCHPARKINGBOY, parkingboysList}}
