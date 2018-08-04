@@ -220,10 +220,6 @@ class parkingBoy extends Component {
                     <a href="javascript:;" onClick={
                         () => this.showModal(id)
                     }>修改</a>
-                    <Divider type="vertical" />
-                    <a href="javascript:;"
-                    >
-                        {e.account_status === "normal" ? "冻结" : "开放"}</a>
                 </span>
             },
         }];
