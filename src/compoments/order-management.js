@@ -11,9 +11,9 @@ class orderManagement extends Component {
             searchType: "id",
             availableParkingBoy:[],
             visible: false,
-            value: 1,
+            value: null,
             radios:[],
-            id:1,
+            id:null,
         }
     }
     showModal = () => {
@@ -22,13 +22,15 @@ class orderManagement extends Component {
         });
     }
     onChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             value: e.target.value,
         });
     }
     handleOk = (e) => {
-        this.props.onPostOrderToParkingBoy(this.state.id,this.state.value);
+        if(this.state.value !== null)
+        {
+            this.props.onPostOrderToParkingBoy(this.state.id,this.state.value);
+        }
         this.setState({
             visible: false,
         });

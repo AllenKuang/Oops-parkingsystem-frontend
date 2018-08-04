@@ -18,7 +18,7 @@ class parkingBoy extends Component {
             parkingBoys:this.props.parkingboyList,
             workStatus:"请假",
             visible: false,
-            parkingBoyId:1,
+            parkingBoyId:null,
         }
     }
     componentWillMount() {
@@ -42,7 +42,11 @@ class parkingBoy extends Component {
         this.setState({
             visible: false,
         });
-        this.props.onUpdateWorkStatus(this.state.parkingBoyId,this.state.workStatus,this.updateParkingBoyList);
+
+        if(this.state.parkingBoyId !== null)
+        {
+            this.props.onUpdateWorkStatus(this.state.parkingBoyId,this.state.workStatus,this.updateParkingBoyList);
+        }
 
     }
     handleCancel = (e) => {
@@ -225,8 +229,6 @@ class parkingBoy extends Component {
         }];
 
         const data = this.props.parkingboyList;
-
-
         return (
             <div>
                 <Row type="flex" justify="space-around" align="middle" style={{marginBottom:"2rem"}}>
