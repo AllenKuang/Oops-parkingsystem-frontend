@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form,Modal,Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
+import { Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
 import Edit from "./common/editComponent"
 import * as types from '../constants/ActionTypes'
 const InputGroup = Input.Group;
@@ -28,23 +28,7 @@ class parkingBoy extends Component {
         })
         console.log(this.state.parkinglots)
     }
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    }
 
-    handleOk = (e) => {
-        this.setState({
-            visible: false,
-        });
-
-    }
-    handleCancel = (e) => {
-        this.setState({
-            visible: false,
-        });
-    }
 
     filterOption = (inputValue, option) => {
         return option.description.indexOf(inputValue) > -1;
@@ -70,11 +54,12 @@ class parkingBoy extends Component {
                     key: lot.id}
         })
         console.log(parkinglotData)
-        const targetKeys = parkinglotData.filter(lot=>
+        const targetKeys = parkinglotData.filter(lot=>  
             lot.userId === e.id
         ).map(lot=>lot.key)
         return (
             <Transfer  style={{display:"flex",justifyContent:"center"}}
+                titles={['可分配停车场','管理停车场']}
                 dataSource={parkinglotData}//数据源，其中的数据会被渲染到左侧一栏
                 listStyle={{
                     width: 250,
@@ -212,7 +197,7 @@ class parkingBoy extends Component {
                 const { id, email, name, password, phone } = e
                 return <span >
                     <a href="javascript:;" onClick={
-                        () => this.showModal()
+                        () => this.showEditForm(true, { id, email, name, password, phone })
                     }>修改</a>
                     <Divider type="vertical" />
                     <a href="javascript:;"
@@ -251,24 +236,13 @@ class parkingBoy extends Component {
                             style={{ width: 400 }}
                         />
                     </Col>
-                    <Col>
                     {this.state.tags.map(x => <Tag closable afterClose = {(e)=> this.deleteKeyWord(e,x.searchITtem)} key = {x.searchITtem.searchType}>{x.name}:{x.searchITtem.searchValue}</Tag>)}
-                    </Col>
                 </Row>
                 <Table columns={columns} 
                     bordered
                     expandedRowRender={this.generateTransfer}
                     dataSource={this.state.parkingBoys} scroll={{ x: 1300 }} />
                 {this.state.isShowEditForm && <Edit dataFormat={this.state.dataFormat} showEditForm={(e) => this.showEditForm(e)} submitForm={(e) => this.submitForm(e)} />}
-                <Modal
-                    title="员工工作状态"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                >
-                    <Form layout="inline" onSubmit={this.handleSubmit}>
-                    </Form>
-                </Modal>
             </div>
         );
     }
