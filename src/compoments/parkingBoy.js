@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal,Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
+import { Form,Modal,Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
 import Edit from "./common/editComponent"
 import * as types from '../constants/ActionTypes'
 const InputGroup = Input.Group;
