@@ -68,7 +68,7 @@ class ParkingLotMangement extends Component {
                         <a href="javascript:;"
                             onClick={() => this.showModifyForm(true, parkinglot.id, parkinglot.name, parkinglot.size)} >修改</a>
                         <Divider type="vertical" />
-                        <Popconfirm placement="leftTop" title="你确定要注销该停车场么？" 
+                        <Popconfirm placement="leftTop" title={`你确定要${parkinglot.status === "open" ? "注销" : "开放"}该停车场么？`}
                         onConfirm={() => {this.props.changeStatus(parkinglot.id, parkinglot.status)}} okText="Yes" cancelText="No">
                                 {/* <a href="javascript:;" >{e.account_status === "normal" ? "冻结" : "开放"}</a> */}
                                 <a href="javascript:;">{parkinglot.status === "open" ? "注销" : "开放"}</a>
