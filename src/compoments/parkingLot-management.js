@@ -56,8 +56,8 @@ class ParkingLotMangement extends Component {
         const columns = [
             // { title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left' },
             { title: 'id', dataIndex: 'id', key: 'id', fixed: 'left' },
-            { title: '名字', dataIndex: 'name', key: 'name' },
-            { title: '大小', dataIndex: 'size', key: 'size' },
+            { title: '名称', dataIndex: 'name', key: 'name' },
+            { title: '容量', dataIndex: 'size', key: 'size' },
             {
                 title: '操作',
                 key: 'operation',
