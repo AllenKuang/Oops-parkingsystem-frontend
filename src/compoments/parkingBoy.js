@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
+import { Form,Modal,Divider, Table, Icon, Input, Select, Transfer , Col, Row,Tag} from 'antd'
 import Edit from "./common/editComponent"
 import * as types from '../constants/ActionTypes'
 const InputGroup = Input.Group;
@@ -16,6 +16,9 @@ class parkingBoy extends Component {
             searchType: "id",
             tags:[],
             parkingBoys:this.props.parkingboyList,
+            workStatus:"请假",
+            visible: false,
+            parkingBoyId:1,
         }
     }
     componentWillMount() {
@@ -28,7 +31,31 @@ class parkingBoy extends Component {
         })
         console.log(this.state.parkinglots)
     }
+    showModal = (id) => {
+        this.setState({
+            parkingBoyId:id,
+            visible: true,
+        });
+    }
 
+    handleOk = (e) => {
+        this.setState({
+            visible: false,
+        });
+        this.props.onUpdateWorkStatus(this.state.parkingBoyId,this.state.workStatus,this.updateParkingBoyList);
+
+    }
+    handleCancel = (e) => {
+        this.setState({
+            visible: false,
+        });
+    }
+    updateParkingBoyList = (parkingBoys) =>{
+        console.log(parkingBoys);
+        this.setState({
+            parkingBoys:parkingBoys,
+        })
+    }
 
     filterOption = (inputValue, option) => {
         return option.description.indexOf(inputValue) > -1;
@@ -72,15 +99,6 @@ class parkingBoy extends Component {
     }
 
 
-    showEditForm = (value, dataFormat) => {
-        this.setState({
-            isShowEditForm: value,
-            dataFormat,
-        })
-    }
-    submitForm = (value) => {
-        this.props.onUpdateEmployee(value)
-    }
     setSeachType = (e) => {
         this.setState({
             searchType: e
@@ -145,7 +163,10 @@ class parkingBoy extends Component {
         },2000)
 
     }
-
+    handleSelectChange = (value)=> {
+        console.log(value);
+        this.setState({workStatus:value});
+    }
     findTypeAndBoys = (searchType,searchValue,parkingBoys)=>{
         console.log(parkingBoys)
         let newparkingBoys =[];
@@ -187,8 +208,8 @@ class parkingBoy extends Component {
             key: 'phone',
         }, {
             title: '状态',
-            dataIndex: 'status',
-            key: 'status',
+            dataIndex: 'work_status',
+            key: 'work_status',
         }, {
             title: '操作',
             key: 'action',
@@ -196,7 +217,7 @@ class parkingBoy extends Component {
                 const { id, email, name, password, phone } = e
                 return <span >
                     <a href="javascript:;" onClick={
-                        () => this.showEditForm(true, { id, email, name, password, phone })
+                        () => this.showModal(id)
                     }>修改</a>
                     <Divider type="vertical" />
                     <a href="javascript:;"
@@ -236,7 +257,7 @@ class parkingBoy extends Component {
                         />
                     </Col>
                     <Col>
-                    {this.state.tags.map(x => <Tag closable afterClose = {(e)=> this.deleteKeyWord(e,x.searchITtem)} key = {x.searchITtem.searchType}>{x.name}:{x.searchITtem.searchValue}</Tag>)}
+                        {this.state.tags.map(x => <Tag closable afterClose = {(e)=> this.deleteKeyWord(e,x.searchITtem)} key = {x.searchITtem.searchType}>{x.name}:{x.searchITtem.searchValue}</Tag>)}
                     </Col>
                 </Row>
                 <Table columns={columns}
@@ -244,6 +265,18 @@ class parkingBoy extends Component {
                        expandedRowRender={this.generateTransfer}
                        dataSource={this.state.parkingBoys} scroll={{ x: 1300 }} />
                 {this.state.isShowEditForm && <Edit dataFormat={this.state.dataFormat} showEditForm={(e) => this.showEditForm(e)} submitForm={(e) => this.submitForm(e)} />}
+                <Modal
+                    title="员工工作状态"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <Select defaultValue="请假" style={{ width: 120 }} onChange={this.handleSelectChange}>
+                        <Option value="请假">请假</Option>
+                        <Option value="早退">早退</Option>
+                    </Select>
+
+                </Modal>
             </div>
         );
     }

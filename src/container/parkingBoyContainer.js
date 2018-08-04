@@ -34,8 +34,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
         onDeleteParkinglot:(userId, ids)=>{
             Api.deleteParkinglots(userId, ids, dispatch)
+        },
+        onUpdateWorkStatus:(parkingBoyId,workStatus,updateParkingBoyList) =>{
+            Api.updateWorkStatus(parkingBoyId,workStatus,updateParkingBoyList)
         }
-
     }
 }
 

@@ -17,8 +17,6 @@ export default {
     },
     "getAllParkingboys": (dispatch) => axios.get(`${requestUrls.employees}?role=parkingboy`)
         .then((res) => {
-            console.log("--boy--------")
-            console.log(res.data)
             dispatch(actions.allparkingboys(res.data))
         })
         .catch((error) => {
@@ -236,4 +234,11 @@ export default {
             .catch(error => {
                 console.log(error);
             }),
+    "updateWorkStatus":(parkingBoyId,workStatus,updateParkingBoyList)=>  axios.patch(requestUrls.employees + "/"+parkingBoyId+"/status?state="+workStatus)
+        .then(res => {
+            updateParkingBoyList(res.data);
+        })
+        .catch(error => {
+            console.log(error);
+        }),
 }
