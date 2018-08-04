@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Table, Button, Input, Select, Row, Col } from 'antd'
+import { Divider, Table, Button, Input, Select, Row, Col, Popconfirm } from 'antd'
 import Edit from "./common/editComponent"
 const InputGroup = Input.Group;
 const Option = Select.Option;
@@ -66,14 +66,14 @@ class employeeMangment extends Component {
                 const { id, email, name, phone, username } = e
                 return <span >
                     <a href="javascript:;" onClick={
-                        () => this.showEditForm(true, { id, email, name, phone, username,role:e.role.role }, false)
+                        () => this.showEditForm(true, { id, email, name, phone, username, role: e.role.role }, false)
                     }>修改</a>
                     {id !== 1 &&
                         <span>
                             <Divider type="vertical" />
-                            <a href="javascript:;" onClick={
-                                () => this.updateAccountStatus(id)
-                            }>{e.account_status === "normal" ? "冻结" : "开放"}</a>
+                            <Popconfirm placement="topLeft" title="你确定要冻结该账户么？" onConfirm={() => this.updateAccountStatus(id)} okText="Yes" cancelText="No">
+                                <a href="javascript:;" >{e.account_status === "normal" ? "冻结" : "开放"}</a>
+                            </Popconfirm>
                         </span>
                     }
 
@@ -85,14 +85,14 @@ class employeeMangment extends Component {
 
         return (
             <div>
-                <Row type="flex" justify="space-around" align="middle" style={{marginBottom:"2rem"}}>
+                <Row type="flex" justify="space-around" align="middle" style={{ marginBottom: "2rem" }}>
                     <Col span={6}>
-                    <Button type="primary" onClick={() => this.showEditForm(true, {
-                        "name": "",
-                        "username": "",
-                        "email": "",
-                        "phone": ""
-                    }, true)}>新增</Button>
+                        <Button type="primary" onClick={() => this.showEditForm(true, {
+                            "name": "",
+                            "username": "",
+                            "email": "",
+                            "phone": ""
+                        }, true)}>新增</Button>
                     </Col>
                     <Col span={6}></Col>
                     <Col span={6} align="right">
@@ -106,7 +106,7 @@ class employeeMangment extends Component {
                         </InputGroup>
                     </Col>
                     <Col span={6}>
-                    <Search
+                        <Search
                             style={{ width: 400 }}
                             placeholder="请输入搜索内容"
                             onSearch={value => this.props.onSearchEmployees({
@@ -117,7 +117,7 @@ class employeeMangment extends Component {
                         />
                     </Col>
                 </Row>
-                {data&&<Table bordered columns={columns} dataSource={data} scroll={{ x: 1300 }} />}
+                {data && <Table bordered columns={columns} dataSource={data} scroll={{ x: 1300 }} />}
                 {this.state.isShowEditForm && <Edit dataFormat={this.state.dataFormat} showEditForm={(e) => this.showEditForm(e)} submitForm={(e) => this.submitForm(e)} />}
             </div>
         );

@@ -16,7 +16,7 @@ class NormalLoginForm extends Component {
           .then((res) => {
             console.log(res)
             if (res.status === 200) {
-              message.info('登录成功');
+              message.success('登录成功');
               localStorage.setItem("access_token", res.data.token);
               axios.defaults.headers.common['authorization'] = res.data.token;
               this.getUserInfo(res.data.id)
