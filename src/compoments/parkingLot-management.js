@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Icon, Divider, Button, Menu, Dropdown, message, Input, Row, Col, Select } from 'antd'
+import { Table, Icon, Divider, Button, Menu, Dropdown, message, Input, Row, Col, Select, Popconfirm } from 'antd'
 import Edit from "./common/editComponent"
 
 const InputGroup = Input.Group;
@@ -68,13 +68,12 @@ class ParkingLotMangement extends Component {
                         <a href="javascript:;"
                             onClick={() => this.showModifyForm(true, parkinglot.id, parkinglot.name, parkinglot.size)} >修改</a>
                         <Divider type="vertical" />
-                        <a href="javascript:;"
-                            onClick={() => {
-                                console.log(parkinglot.id);
-                                this.props.changeStatus(parkinglot.id, parkinglot.status)
-                            }}>
-                            {parkinglot.status === "open" ? "注销" : "开放"}
-                        </a>
+                        <Popconfirm placement="leftTop" title="你确定要注销该停车场么？" 
+                        onConfirm={() => {this.props.changeStatus(parkinglot.id, parkinglot.status)}} okText="Yes" cancelText="No">
+                                {/* <a href="javascript:;" >{e.account_status === "normal" ? "冻结" : "开放"}</a> */}
+                                <a href="javascript:;">{parkinglot.status === "open" ? "注销" : "开放"}</a>
+                            </Popconfirm>
+                        
                     </span>
                 ),
             },
