@@ -114,7 +114,7 @@ class orderManagement extends Component {
                     </Col>
                     <Col span={6}>
                         <Search
-                            placeholder="示例文字"
+                            placeholder="请输入搜索内容"
                             enterButton="搜索"
                             // onSearch={value => console.log(value)}
                             onSearch={value => this.props.onSearchOrders({
