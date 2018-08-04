@@ -22,6 +22,9 @@ class App extends Component {
         {
           !localStorage.getItem("access_token") && < Redirect to="/login" />
         }
+        {
+          localStorage.getItem("access_token") && < Redirect to="/home/welcome" />
+        }
       </div>
     );
   }
