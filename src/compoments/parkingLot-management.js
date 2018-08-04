@@ -44,7 +44,11 @@ class ParkingLotMangement extends Component {
     }
 
     modifyForm = (value) => {
-        this.props.onModifyParkinglot(this.state.modifyId, value)
+        if(value.size.match(/\D/)==null){
+            this.props.onModifyParkinglot(this.state.modifyId, value)
+        }else{
+            message.error("停车场信息格式错误")
+        }
     }
 
     submitForm = (value) => {
@@ -73,7 +77,6 @@ class ParkingLotMangement extends Component {
                                 {/* <a href="javascript:;" >{e.account_status === "normal" ? "冻结" : "开放"}</a> */}
                                 <a href="javascript:;">{parkinglot.status === "open" ? "注销" : "开放"}</a>
                             </Popconfirm>
-                        
                     </span>
                 ),
             },
