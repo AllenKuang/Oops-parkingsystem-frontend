@@ -12,7 +12,7 @@ export default {
                 dispatch(actions.allEmployees(res.data))
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error); 
             })
     },
     "getAllParkingboys": (dispatch) => axios.get(`${requestUrls.employees}?role=parkingboy`)
