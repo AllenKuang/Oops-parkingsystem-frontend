@@ -103,7 +103,7 @@ class employeeMangment extends Component {
                         <InputGroup compact>
                             <Select defaultValue="id" style={{ width: "100px" }} onChange={(e) => this.setSeachType(e)}>
                                 <Option value="id">id</Option>
-                                <Option value="name">名称</Option>
+                                <Option value="name">姓名</Option>
                                 <Option value="email">email</Option>
                                 <Option value="phone">电话号码</Option>
                             </Select>
