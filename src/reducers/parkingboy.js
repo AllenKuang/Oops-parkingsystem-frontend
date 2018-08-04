@@ -11,12 +11,6 @@ export default (state=[], action) => {
             let newState = [...state,action.employeeItem]
             return newState;
         } 
-
-        case types.ACCOUNTSTATUS:{
-            let newState = [...state]
-            newState.find(i=>i.id == action.employeeItem.id).account_status = action.employeeItem.account_status
-            return newState;
-        }
         case types.UPDATEPARKINGBOY:{
             let newState = [...state]
             return newState.map(i=>{
