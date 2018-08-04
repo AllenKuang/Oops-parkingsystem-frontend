@@ -67,6 +67,7 @@ export default {
                 dispatch(actions.addEmployee(res.data))
             })
             .catch((error) => {
+                message.error("账户名不能重复，新增员工失败")
                 console.log(error);
             }),
     "addParkinglot": (dispatch, postData) =>{
