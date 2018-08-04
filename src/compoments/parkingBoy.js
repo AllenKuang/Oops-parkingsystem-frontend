@@ -235,7 +235,9 @@ class parkingBoy extends Component {
                             style={{ width: 400 }}
                         />
                     </Col>
+                    <Col>
                     {this.state.tags.map(x => <Tag closable afterClose = {(e)=> this.deleteKeyWord(e,x.searchITtem)} key = {x.searchITtem.searchType}>{x.name}:{x.searchITtem.searchValue}</Tag>)}
+                    </Col>
                 </Row>
                 <Table columns={columns} 
                     bordered

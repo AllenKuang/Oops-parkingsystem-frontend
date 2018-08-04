@@ -60,6 +60,10 @@ class employeeMangment extends Component {
             dataIndex: 'phone',
             key: 'phone',
         }, {
+            title: '职位',
+            dataIndex: 'role.role',
+            key: 'role',
+        }, {
             title: '操作',
             key: 'action',
             render: (e) => {

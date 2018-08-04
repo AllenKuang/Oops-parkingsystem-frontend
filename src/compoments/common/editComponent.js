@@ -74,7 +74,7 @@ class Edit extends Component {
                             hasFeedback
                         >
                             <Select disabled={this.props.dataFormat["role"] === "admin" ? true : false} defaultValue={this.props.dataFormat["role"]} onChange={this.setRole}>
-                                <Option value="manager">manage</Option>
+                                <Option value="manager">manager</Option>
                                 <Option value="parkingboy">parkingboy</Option>
                             </Select>
                         </FormItem>}
