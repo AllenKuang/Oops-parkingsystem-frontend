@@ -57,6 +57,7 @@ export default {
                 }
             })
             .catch(error => {
+                message.error(`停车场${status==="open"?"注销失败，已被分配的停车场无法注销":"开放失败"}`)
                 console.log(error)
             }),
     "addEmployee": (dispatch, postData) =>
@@ -93,8 +94,9 @@ export default {
                 message.success("停车场修改成功")
             })
             .catch(error => {
-                message.error("停车场有车时不能修改大小")
-                console.log(error)
+                // message.error("停车场有车时不能修改大小")
+                message.error("停车场修改失败");
+                console.log(error.data)
             }),
 
     "frozenAccount": (dispatch, id) => axios.patch(requestUrls.employees + "/" + id, {account_status: ""})
