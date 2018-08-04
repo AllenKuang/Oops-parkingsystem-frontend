@@ -124,9 +124,11 @@ export default {
         }),
     "updateEmployee": (dispatch, employee) => axios.patch(requestUrls.employees + "/" + employee.id, employee)
         .then((res) => {
+            message.success("信息修改成功")
             dispatch(actions.updateEmployee(res.data))
         })
         .catch((error) => {
+            message.error("manager已经存在，不能重复设置")
             console.log(error);
         }),
     "searchEmployees": (dispatch, searchValue) => axios.get(requestUrls.employees + "/search?" + searchValue.searchType + "=" + searchValue.searchValue + "")
