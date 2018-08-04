@@ -126,7 +126,7 @@ class orderManagement extends Component {
                 <Table columns={columns} dataSource={data} scroll={{ x: 1300 }} />
                 <div>
                     <Modal
-                        title="Basic Modal"
+                        title="空闲人员"
                         visible={this.state.visible}
                         onOk={this.handleOk}
                         onCancel={this.handleCancel}

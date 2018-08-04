@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
+import { Modal,Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
 import Edit from "./common/editComponent"
 import * as types from '../constants/ActionTypes'
 const InputGroup = Input.Group;
@@ -28,7 +28,23 @@ class parkingBoy extends Component {
         })
         console.log(this.state.parkinglots)
     }
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
 
+    handleOk = (e) => {
+        this.setState({
+            visible: false,
+        });
+
+    }
+    handleCancel = (e) => {
+        this.setState({
+            visible: false,
+        });
+    }
 
     filterOption = (inputValue, option) => {
         return option.description.indexOf(inputValue) > -1;
@@ -196,7 +212,7 @@ class parkingBoy extends Component {
                 const { id, email, name, password, phone } = e
                 return <span >
                     <a href="javascript:;" onClick={
-                        () => this.showEditForm(true, { id, email, name, password, phone })
+                        () => this.showModal()
                     }>修改</a>
                     <Divider type="vertical" />
                     <a href="javascript:;"
@@ -244,6 +260,15 @@ class parkingBoy extends Component {
                     expandedRowRender={this.generateTransfer}
                     dataSource={this.state.parkingBoys} scroll={{ x: 1300 }} />
                 {this.state.isShowEditForm && <Edit dataFormat={this.state.dataFormat} showEditForm={(e) => this.showEditForm(e)} submitForm={(e) => this.submitForm(e)} />}
+                <Modal
+                    title="员工工作状态"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <Form layout="inline" onSubmit={this.handleSubmit}>
+                    </Form>
+                </Modal>
             </div>
         );
     }
