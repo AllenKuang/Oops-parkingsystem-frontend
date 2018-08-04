@@ -21,11 +21,11 @@ class NormalLoginForm extends Component {
               axios.defaults.headers.common['authorization'] = res.data.token;
               this.getUserInfo(res.data.id)
             } else {
-              message.info('账号或密码错误！');
+            message.error('账号或密码错误或账号被冻结！');
             }
           })
           .catch((error) => {
-            message.info('账号或密码错误！');
+            message.error('账号或密码错误或账号被冻结！');
           })
       }
     });

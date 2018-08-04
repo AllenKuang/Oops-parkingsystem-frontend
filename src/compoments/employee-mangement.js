@@ -75,7 +75,7 @@ class employeeMangment extends Component {
                     {id !== 1 &&
                         <span>
                             <Divider type="vertical" />
-                            <Popconfirm placement="topLeft" title="你确定要冻结该账户么？" onConfirm={() => this.updateAccountStatus(id)} okText="Yes" cancelText="No">
+                            <Popconfirm placement="leftTop" title="你确定要冻结该账户么？" onConfirm={() => this.updateAccountStatus(id)} okText="Yes" cancelText="No">
                                 <a href="javascript:;" >{e.account_status === "normal" ? "冻结" : "开放"}</a>
                             </Popconfirm>
                         </span>

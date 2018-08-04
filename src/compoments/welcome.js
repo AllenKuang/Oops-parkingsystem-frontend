@@ -12,7 +12,7 @@ class Welcome extends Component {
     return (
      <div>
        <p style={{textAlign:"center",marginTop:"15rem",color:"#1890ff",fontSize:"2rem"}}>
-        欢迎来到Oops停车管理系统
+        欢迎"{userInfo.name}"来到Oops停车管理系统
        {userInfo&&userInfo.role&&userInfo.role.role==="parkingboy"&& <p>(您暂无操作权限)</p>}
        </p>
      </div>
