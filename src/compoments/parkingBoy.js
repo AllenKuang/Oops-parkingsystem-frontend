@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form,Modal,Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
+import { Divider, Table, Button, Input, Select, Transfer , Col, Row,Tag} from 'antd'
 import Edit from "./common/editComponent"
 import * as types from '../constants/ActionTypes'
 const InputGroup = Input.Group;
@@ -28,23 +28,7 @@ class parkingBoy extends Component {
         })
         console.log(this.state.parkinglots)
     }
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    }
 
-    handleOk = (e) => {
-        this.setState({
-            visible: false,
-        });
-
-    }
-    handleCancel = (e) => {
-        this.setState({
-            visible: false,
-        });
-    }
 
     filterOption = (inputValue, option) => {
         return option.description.indexOf(inputValue) > -1;
@@ -58,7 +42,7 @@ class parkingBoy extends Component {
         }else{
             this.props.onDeleteParkinglot(id, moveKeys)
         }
-      }
+    }
 
     generateTransfer = (e) => {
         console.log(e)
@@ -67,7 +51,7 @@ class parkingBoy extends Component {
             (lot.status === "open" && (lot.userId == null || lot.userId === e.id))
         ).map(lot=>{
             return {...lot,
-                    key: lot.id}
+                key: lot.id}
         })
         console.log(parkinglotData)
         const targetKeys = parkinglotData.filter(lot=>
@@ -75,15 +59,15 @@ class parkingBoy extends Component {
         ).map(lot=>lot.key)
         return (
             <Transfer  style={{display:"flex",justifyContent:"center"}}
-                dataSource={parkinglotData}//数据源，其中的数据会被渲染到左侧一栏
-                listStyle={{
-                    width: 250,
-                    height: 300,
-                  }}
-                filterOption={this.filterOption}
-                targetKeys={targetKeys}//显示在右侧框数据的key集合
-                onChange={(nextTargetKeys, direction, moveKeys)=>this.handleChange(nextTargetKeys, direction, moveKeys, e.id)}//选项在两栏之间转移时的回调函数
-                render={item => item.name}
+                       dataSource={parkinglotData}//数据源，其中的数据会被渲染到左侧一栏
+                       listStyle={{
+                           width: 250,
+                           height: 300,
+                       }}
+                       filterOption={this.filterOption}
+                       targetKeys={targetKeys}//显示在右侧框数据的key集合
+                       onChange={(nextTargetKeys, direction, moveKeys)=>this.handleChange(nextTargetKeys, direction, moveKeys, e.id)}//选项在两栏之间转移时的回调函数
+                       render={item => item.name}
             />)
     }
 
@@ -164,7 +148,7 @@ class parkingBoy extends Component {
 
     findTypeAndBoys = (searchType,searchValue,parkingBoys)=>{
         console.log(parkingBoys)
-         let newparkingBoys =[];
+        let newparkingBoys =[];
         let type;
         if(searchType === "id")
         {
@@ -212,7 +196,7 @@ class parkingBoy extends Component {
                 const { id, email, name, password, phone } = e
                 return <span >
                     <a href="javascript:;" onClick={
-                        () => this.showModal()
+                        () => this.showEditForm(true, { id, email, name, password, phone })
                     }>修改</a>
                     <Divider type="vertical" />
                     <a href="javascript:;"
@@ -231,7 +215,7 @@ class parkingBoy extends Component {
                     <Col ></Col>
                     <Col ></Col>
                     <Col  align="right">
-                    <InputGroup compact>
+                        <InputGroup compact>
                             <Select defaultValue="id" style={{ width: "100px" }} onChange={this.setSeachType}>
                                 <Option value="id">id</Option>
                                 <Option value="name">姓名</Option>
@@ -255,20 +239,11 @@ class parkingBoy extends Component {
                     {this.state.tags.map(x => <Tag closable afterClose = {(e)=> this.deleteKeyWord(e,x.searchITtem)} key = {x.searchITtem.searchType}>{x.name}:{x.searchITtem.searchValue}</Tag>)}
                     </Col>
                 </Row>
-                <Table columns={columns} 
-                    bordered
-                    expandedRowRender={this.generateTransfer}
-                    dataSource={this.state.parkingBoys} scroll={{ x: 1300 }} />
+                <Table columns={columns}
+                       bordered
+                       expandedRowRender={this.generateTransfer}
+                       dataSource={this.state.parkingBoys} scroll={{ x: 1300 }} />
                 {this.state.isShowEditForm && <Edit dataFormat={this.state.dataFormat} showEditForm={(e) => this.showEditForm(e)} submitForm={(e) => this.submitForm(e)} />}
-                <Modal
-                    title="员工工作状态"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                >
-                    <Form layout="inline" onSubmit={this.handleSubmit}>
-                    </Form>
-                </Modal>
             </div>
         );
     }

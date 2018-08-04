@@ -17,6 +17,8 @@ export default {
     },
     "getAllParkingboys": (dispatch) => axios.get(`${requestUrls.employees}?role=parkingboy`)
         .then((res) => {
+            console.log("--boy--------")
+            console.log(res.data)
             dispatch(actions.allparkingboys(res.data))
         })
         .catch((error) => {
