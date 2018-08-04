@@ -87,17 +87,22 @@ export default {
         }
     },
 
-    "modifyParkinglot": (id, value, dispatch) =>
-        axios.put(`${requestUrls.parkingLots}/${id}`, value)
-            .then(res => {
-                dispatch(actions.modifyParkinglot(res.data))
-                message.success("停车场修改成功")
-            })
-            .catch(error => {
-                // message.error("停车场有车时不能修改大小")
-                message.error("停车场修改失败");
-                console.log(error.data)
-            }),
+    "modifyParkinglot": (id, car, value, dispatch) =>{
+        if(car === 0){
+            axios.put(`${requestUrls.parkingLots}/${id}`, value)
+                .then(res => {
+                    dispatch(actions.modifyParkinglot(res.data))
+                    message.success("停车场修改成功")
+                })
+                .catch(error => {
+                    // message.error("停车场有车时不能修改大小")
+                    message.error("停车场修改失败");
+                    console.log(error.data)
+                })
+        }else{
+            message.error("停车场有车时不能修改")
+        }
+    },
 
     "frozenAccount": (dispatch, id) => axios.patch(requestUrls.employees + "/" + id, {account_status: ""})
         .then(res => {
@@ -107,15 +112,15 @@ export default {
             console.log(error);
         }),
 
-    "getAllOrders": (dispatch) => 
-        axios.get(requestUrls.orders)   
+    "getAllOrders": (dispatch) =>
+        axios.get(requestUrls.orders)
         .then((res) => {
             dispatch(actions.allOrders(res.data))
         })
         .catch((error) => {
             console.log(error);
         }),
-    "getAllParkingLotsInDashboard": (dispatch) => 
+    "getAllParkingLotsInDashboard": (dispatch) =>
         axios.get(requestUrls.parkingLotsDashboard)
         .then((res) => {
             console.log(res.data)

@@ -28,10 +28,11 @@ class ParkingLotMangement extends Component {
     componentWillMount() {
         this.props.onGetAllParkingLots();
     }
-    showModifyForm = (value, id, name, size, cars) => {
+    showModifyForm = (value, id, name, size, car) => {
         this.setState({
             isShowModifyForm: value,
             modifyId: id,
+            car: car,
             dataFormat: { name, size}
         })
     }
@@ -44,7 +45,7 @@ class ParkingLotMangement extends Component {
 
     modifyForm = (value) => {
         if(value.size != null && (value.size+"").match(/\D/)==null){
-            this.props.onModifyParkinglot(this.state.modifyId, value)
+            this.props.onModifyParkinglot(this.state.modifyId, this.state.car, value)
         }else{
             message.error("停车场信息格式错误")
         }

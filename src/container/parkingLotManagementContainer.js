@@ -22,8 +22,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             Api.addParkinglot(dispatch, value);
         },
 
-        onModifyParkinglot:(id, value)=>{
-            Api.modifyParkinglot(id, value, dispatch);
+        onModifyParkinglot:(id, car, value)=>{
+            Api.modifyParkinglot(id, car, value, dispatch);
         },
 
         onSearch:(value, searchType)=>{
