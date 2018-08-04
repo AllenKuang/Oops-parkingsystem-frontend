@@ -17,7 +17,7 @@ export default {
     },
     "getAllParkingboys": (dispatch) => axios.get(`${requestUrls.employees}?role=parkingboy`)
         .then((res) => {
-            dispatch(actions.allEmployees(res.data))
+            dispatch(actions.allparkingboys(res.data))
         })
         .catch((error) => {
             console.log(error);

@@ -7,7 +7,7 @@ const mapStateToProps = (state, ownProps) => {
 
     // console.log("++++"+JSON.stringify(state.parkingLotReducers))
     return {
-       parkingboyList: state.employeeReducers,
+       parkingboyList: state.parkingboyReducers,
        parkinglots: state.parkingLotReducers,
     }
 

@@ -118,7 +118,9 @@ class parkingBoy extends Component {
         }
         console.log(tags)
         this.setState({
-            filterList:list,tags,parkingBoys
+            filterList:list,
+            tags,
+            parkingBoys
         })
 
     }
