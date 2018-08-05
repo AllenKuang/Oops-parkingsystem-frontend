@@ -24,7 +24,6 @@ class Edit extends Component {
         this.setState({
             role: e
         })
-        console.log(e)
     }
     render() {
         const formItemLayout = {

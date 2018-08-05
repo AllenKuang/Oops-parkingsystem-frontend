@@ -3,8 +3,6 @@ export default (state = [], action) => {
     switch (action.type) {
         case types.EMPLOYEELIST: {
             let newState = [...action.employeesList]
-            // newState = action.employeesList
-            console.log(newState)
             return newState;
         }
         case types.ADDEMPLOYEE: {
@@ -14,7 +12,6 @@ export default (state = [], action) => {
 
         case types.ACCOUNTSTATUS: {
             let newState = [...state]
-            console.log(newState.filter(i => i.id == action.employeeItem.id))
             return newState.map(i => {
                 if(i.id == action.employeeItem.id){
                     return action.employeeItem
@@ -33,7 +30,6 @@ export default (state = [], action) => {
             })
         }
         case types.SEARCHEMPLOYEE: {
-            console.log(action.employeesList)
             let newState = [...action.employeesList]
             return newState
         }

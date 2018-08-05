@@ -51,9 +51,7 @@ class orderManagement extends Component {
         for(let i = 0;i<availableBoys.length;i++){
             radios.push( <Radio  key ={i} value={availableBoys[i].id} >{availableBoys[i].name}</Radio>);
         }
-        console.log(id);
         this.setState({availableParkingBoy:availableBoys,radios,id});
-        console.log(this.state.id)
         this.showModal();
     }
     componentWillMount() {
@@ -116,7 +114,6 @@ class orderManagement extends Component {
                         <Search
                             placeholder="请输入搜索内容"
                             enterButton="搜索"
-                            // onSearch={value => console.log(value)}
                             onSearch={value => this.props.onSearchOrders({
                                 searchType: this.state.searchType,
                                 searchValue: value

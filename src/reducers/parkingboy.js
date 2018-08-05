@@ -3,8 +3,6 @@ export default (state=[], action) => {
     switch (action.type) {
        case types.PARKINGBOYLIST:{
             let newState = [...action.parkingboysList]
-            // newState = action.employeesList
-           console.log(newState)
             return newState;
         }
         case types.ADDPARKINGBOY:{
@@ -22,7 +20,6 @@ export default (state=[], action) => {
             })
         }
         case types.SEARCHPARKINGBOY:{
-            console.log(action.employeesList)
             let newState = [...action.employeesList]
             return newState
         }

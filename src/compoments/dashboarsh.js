@@ -13,7 +13,6 @@ class Dashboarsh extends Component {
     }
     render() {
         const items = this.props.parkinglotsListInDashboard;
-        console.log(items)
         return (
             <div >
              <Row type="flex" justify="space-around">

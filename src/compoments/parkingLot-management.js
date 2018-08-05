@@ -19,7 +19,6 @@ class ParkingLotMangement extends Component {
     }
 
     setSearchType = (e) => {
-        console.log(e)
         this.setState({
             searchType: e,
         })

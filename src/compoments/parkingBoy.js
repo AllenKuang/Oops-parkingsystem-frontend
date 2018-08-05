@@ -22,14 +22,12 @@ class parkingBoy extends Component {
         }
     }
     componentWillMount() {
-        console.log(this.props.parkingboyList)
         this.props.onGetAllParkingboys();
         this.props.onGetAllParkinglots();
         this.setState({
             parkinglots: this.props.parkinglots,
             parkingBoys:this.props.parkingboyList,
         })
-        console.log(this.state.parkinglots)
     }
     showModal = (id) => {
         this.setState({
@@ -55,7 +53,6 @@ class parkingBoy extends Component {
         });
     }
     updateParkingBoyList = (parkingBoys) =>{
-        console.log(parkingBoys);
         this.setState({
             parkingBoys:parkingBoys,
         })
@@ -76,15 +73,12 @@ class parkingBoy extends Component {
       }
 
     generateTransfer = (e) => {
-        console.log(e)
-        console.log(this.props.parkinglots)
         const parkinglotData = this.props.parkinglots.filter(lot=>
             (lot.status === "open" && (lot.userId == null || lot.userId === e.id))
         ).map(lot=>{
             return {...lot,
                     key: lot.id}
         })
-        console.log(parkinglotData)
         const targetKeys = parkinglotData.filter(lot=>
             lot.userId === e.id
         ).map(lot=>lot.key)
@@ -129,17 +123,14 @@ class parkingBoy extends Component {
     showTags = (list)=>{
         let tags = [];
         let parkingBoys = this.props.parkingboyList;
-        console.log(parkingBoys);
         let type ;
         let typeAndBoy;
-        console.log(list);
         for(let i=0;i<list.length;i++){
             typeAndBoy =this.findTypeAndBoys(list[i].searchType,list[i].searchValue,parkingBoys)
             parkingBoys = typeAndBoy.parkingBoys;
             type = typeAndBoy.type;
             tags.push({"name":type,"searchITtem":list[i]});
         }
-        console.log(tags)
         this.setState({
             filterList:list,
             tags,
@@ -148,10 +139,7 @@ class parkingBoy extends Component {
 
     }
     deleteKeyWord = (e,key)=> {
-        console.log(this.state.filterList.concat())
-        console.log(key)
         let filterList = this.state.filterList.filter(x=> !(x == key))
-        console.log(filterList);
         let type;
         let typeAndBoy;
         let parkingBoys = this.props.parkingboyList;
@@ -164,16 +152,13 @@ class parkingBoy extends Component {
         }
         this.setState({filterList,parkingBoys,tags})
         setTimeout(()=>{
-            console.log(this.state)
         },2000)
 
     }
     handleSelectChange = (value)=> {
-        console.log(value);
         this.setState({workStatus:value});
     }
     findTypeAndBoys = (searchType,searchValue,parkingBoys)=>{
-        console.log(parkingBoys)
         let newparkingBoys =[];
         let type;
         if(searchType === "id")
