@@ -14,7 +14,6 @@ class NormalLoginForm extends Component {
         let postData = { "username": values.userName, "password": values.password }
         axios.post(requestUrls.login, postData)//.employees
           .then((res) => {
-            console.log(res)
             if (res.status === 200 &&res.data.token) {
               message.success('登录成功');
               localStorage.setItem("access_token", res.data.token);

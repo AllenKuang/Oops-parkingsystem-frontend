@@ -2,10 +2,6 @@ import { connect } from 'react-redux'
 import parkingBoy from "../compoments/parkingBoy"
 import Api from "../API/parkingLotAPI"
 const mapStateToProps = (state, ownProps) => {
-    console.log("-----------------")
-    console.log(state)
-
-    // console.log("++++"+JSON.stringify(state.parkingLotReducers))
     return {
        parkingboyList: state.parkingboyReducers,
        parkinglots: state.parkingLotReducers,

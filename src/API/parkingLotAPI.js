@@ -25,7 +25,6 @@ export default {
     "getAllParkingLots": (dispatch) => 
         axios.get(requestUrls.parkingLots)
         .then((res) => {
-            console.log("------"+JSON.stringify(res.data))
             dispatch(actions.allParkingLots(res.data))
         })
         .catch((error) => {
@@ -48,7 +47,6 @@ export default {
                     // getAllParkingLots(dispatch);
                     axios.get(requestUrls.parkingLots)
                         .then((res) => {
-                            console.log(res.data);
                             dispatch(actions.allParkingLots(res.data))
                         })
                         .catch((error) => {
@@ -75,7 +73,6 @@ export default {
         if(size.match(/\D/)==null){
             axios.post(requestUrls.parkingLots, postData)
                 .then(res => {
-                    // console.log(res.data);
                     dispatch(actions.addParkinglot(res.data));
                     message.success("停车场添加成功")
                 })
@@ -98,7 +95,6 @@ export default {
                 .catch(error => {
                     // message.error("停车场有车时不能修改大小")
                     message.error("停车场修改失败");
-                    console.log(error.data)
                 })
         }else{
             message.error("停车场有车时不能修改")
@@ -124,7 +120,6 @@ export default {
     "getAllParkingLotsInDashboard": (dispatch) =>
         axios.get(requestUrls.parkingLotsDashboard)
         .then((res) => {
-            console.log(res.data)
             dispatch(actions.allParkingLotsInDashboard(res.data))
         })
         .catch((error) => {
@@ -151,7 +146,6 @@ export default {
         let search = `?${searchType}=${value}`;
         axios.get(requestUrls.parkingLotCombineSearch + search)
             .then(res => {
-                console.log(res);
                 dispatch(actions.allParkingLots(res.data));
             })
             .catch(error => {
@@ -184,7 +178,6 @@ export default {
 
         axios.get(requestUrls.parkingLots)
         .then(res => {
-            console.log(res);
             dispatch(actions.allParkingLots(res.data));
         })
         .catch(error => {
@@ -214,7 +207,6 @@ export default {
 
         axios.get(requestUrls.parkingLots)
         .then(res => {
-            console.log(res);
             dispatch(actions.allParkingLots(res.data));
         })
         .catch(error => {
