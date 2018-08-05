@@ -169,10 +169,10 @@ class parkingBoy extends Component {
         else if(searchType === "name")
         {
             type = types.name;
-            newparkingBoys = parkingBoys.filter(x=>x.name === searchValue);
+            newparkingBoys = parkingBoys.filter(x=>x.name.indexOf(searchValue)!=-1);
         }
         else  if(searchType === "phone"){
-            newparkingBoys = parkingBoys.filter(x=>x.phone === searchValue);
+            newparkingBoys = parkingBoys.filter(x=>x.phone.indexOf(searchValue != -1));
             type = types.phone;
         }
 
